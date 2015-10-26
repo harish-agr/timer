@@ -1,41 +1,43 @@
-
+#include <signal.h>
 #include <sys/time.h>
 #include "list.h"
+#include "timer.h"
 
 
+static struct dl_list timer_list_header;
 
-static int os_get_reltime(struct timeval *t)
+kjnt init_timer_list(void)
 {
-#if defined(CLOCK_BOOTTIME)
-	static clockid_t clock_id = CLOCK_BOOTTIME;
-#elif defined(CLOCK_MONOTONIC)
-	static clockid_t clock_id = CLOCK_MONOTONIC;
-#else
-	static clockid_t clock_id = CLOCK_REALTIME;
-#endif
-	struct timespec ts;
-	int res;
-
-	while (1) {
-		res = clock_gettime(clock_id, &ts);
-		if (res == 0) {
-			t->tv_sec = ts.tv_sec;
-			t->tv_usec = ts.tv_nsec / 1000;
-			return 0;
-		}
-		switch (clock_id) {
-#ifdef CLOCK_BOOTTIME
-		case CLOCK_BOOTTIME:
-			clock_id = CLOCK_MONOTONIC;
-			break;
-#endif
-#ifdef CLOCK_MONOTONIC
-		case CLOCK_MONOTONIC:
-			clock_id = CLOCK_REALTIME;
-			break;
-#endif
-		case CLOCK_REALTIME:
-			return -1;
-		}
-	}
+    dl_list_list(&timer_list_header);
 }
+
+int deinit_timer_list(void)
+{
+
+}
+
+int register_reltimer(int second, int microsecond,struct timer_hander hander,void *user_ctx)
+{
+
+
+}
+
+int cancel_timer(struct timer *t)
+{
+
+
+}
+
+
+static void alarm_entry(int sig)
+{
+    if ((sig != SIGALARM) ||
+        dl_list_empty(timer_list_header)){
+        return ;
+    }
+
+
+
+
+}
+
