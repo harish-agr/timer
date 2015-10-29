@@ -3,21 +3,21 @@
 
 void timer_func1(void *data)
 {
-	return;	
+	return;
 
 }
 
 void timer_func2(void *data)
 {
-	
-	return;	
+
+	return;
 
 }
 
 void timer_func3(void *data)
 {
-	
-	return;	
+
+	return;
 
 }
 
